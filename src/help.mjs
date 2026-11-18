@@ -6,9 +6,8 @@ PBIP Forge writes a complete Power BI Project (PBIP) on disk:
   <Name>.SemanticModel/   TMDL model (tables, columns, DAX measures, relationships, RLS)
   <Name>.Report/          PBIR report (pages and native visuals)
 
-Open the .pbip in Power BI Desktop. No model browser, canvas clicking, or Power BI
-Desktop automation is required. Save As .pbix in Desktop if a single binary file is
-needed, or publish the project to a Fabric workspace.
+Generation and validation are fully headless: no Power BI Desktop window is opened.
+Opening the result is an explicit, separate action ("powerbi_open" or "--open").
 
 ## Minimal spec
 
@@ -218,7 +217,7 @@ and Git-friendly.
 
 ## CLI
 
-node bin/pbip-forge.mjs build spec.json --output C:\\\\work\\\\sales --overwrite --open
+node bin/pbip-forge.mjs build spec.json --output C:\\\\work\\\\sales --overwrite
 node bin/pbip-forge.mjs validate C:\\\\work\\\\sales\\\\Sales.pbip
 node bin/pbip-forge.mjs help
 
@@ -227,5 +226,5 @@ node bin/pbip-forge.mjs help
 Run the stdio server:
 node mcp/server.mjs
 
-Tools: powerbi_create, powerbi_help, powerbi_validate, powerbi_open.
+Tools: powerbi_create (headless), powerbi_help, powerbi_validate (headless), powerbi_open (explicit UI).
 `

@@ -71,6 +71,13 @@ export async function openInPowerBi(pbipPath) {
   if (process.platform !== 'win32') {
     return { opened: false, reason: 'Power BI Desktop is Windows-only' }
   }
+  if (isHeadless()) {
+    return {
+      opened: false,
+      headless: true,
+      reason: 'Headless mode is active (PBIP_FORGE_HEADLESS); Power BI Desktop was not launched.',
+    }
+  }
   const escaped = String(pbipPath).replaceAll("'", "''")
   try {
     await execFileAsync(
@@ -82,4 +89,9 @@ export async function openInPowerBi(pbipPath) {
   } catch (error) {
     return { opened: false, reason: String(error?.message ?? error) }
   }
+}
+
+export function isHeadless() {
+  const value = String(process.env.PBIP_FORGE_HEADLESS ?? '').trim().toLowerCase()
+  return value === '1' || value === 'true' || value === 'yes' || value === 'on'
 }

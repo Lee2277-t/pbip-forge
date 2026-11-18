@@ -14,7 +14,7 @@ const serverPath = path.join(root, 'mcp', 'server.mjs')
 const nodePath = process.execPath
 
 function usage() {
-  return `pbip-forge 1.0.0
+  return `pbip-forge 1.0.1
 
 Create complete Power BI projects (.pbip) directly.
 
@@ -31,7 +31,8 @@ Usage:
 Build options:
   -o, --output <dir>     Output directory, or a path ending in .pbip
   --overwrite            Replace an existing generated project
-  --open                 Open the result in Power BI Desktop
+  --headless             Never launch Power BI Desktop (default for build)
+  --open                 Explicitly open the result in Power BI Desktop
   --no-validate          Skip TMDL validation
   --json                 Print the full JSON result
 
@@ -49,7 +50,7 @@ function parseArgs(argv) {
       continue
     }
     const key = token.replace(/^-+/, '')
-    if (key === 'overwrite' || key === 'open' || key === 'json' || key === 'help') {
+    if (key === 'overwrite' || key === 'open' || key === 'headless' || key === 'json' || key === 'help') {
       args.flags[key] = true
       continue
     }
@@ -85,7 +86,7 @@ function jsonOrText(result, flags) {
       console.log(`  TMDL validation: ${t.status}${t.status === 'passed' ? ` (${t.tables} tables, ${t.relationships} relationships)` : t.reason ? ` — ${t.reason}` : ''}`)
     }
     for (const warning of result.warnings ?? []) console.log(`  warning: ${warning}`)
-    console.log('Next: open the .pbip in Power BI Desktop, then Save As .pbix or publish to Fabric.')
+    console.log('Next: open the .pbip manually in Power BI Desktop when you are ready; the build itself never opens a window.')
   } else {
     console.error(`Build failed${result.error ? `: ${result.error}` : ''}`)
     if (result.project) console.error(`  project: ${result.project}`)
@@ -157,10 +158,11 @@ async function main() {
     return
   }
   if (command === 'version' || command === '--version') {
-    console.log('1.0.0')
+    console.log('1.0.1')
     return
   }
   if (command === 'build') {
+    if (args.flags.headless) process.env.PBIP_FORGE_HEADLESS = '1'
     const specPath = args._[1] ?? args.flags.specPath
     const spec = args.flags.spec
     if (!spec && !specPath) {
@@ -174,7 +176,7 @@ async function main() {
         {
           outputDir: args.flags.output,
           overwrite: args.flags.overwrite === true,
-          open: args.flags.open === true,
+          open: args.flags.open === true && args.flags.headless !== true,
           validate: args.flags.validate !== false,
         },
       )

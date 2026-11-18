@@ -5,7 +5,8 @@ description: Create complete Power BI projects (.pbip) directly — TMDL semanti
 
 # Power BI authoring
 
-Use PBIP Forge. Do **not** automate the Power BI Desktop UI.
+Use PBIP Forge. Do **not** automate the Power BI Desktop UI. Generation and
+validation are fully headless and never open a Power BI window.
 
 ## Entry point
 
@@ -75,6 +76,9 @@ Any PBIR visual: pass `visualType` plus exact `roles`:
 
 ## Rules
 
+- **Never launch Power BI during build or validation.** `powerbi_create` and
+  `powerbi_validate` are file-level/headless. Only call `powerbi_open` when the
+  user explicitly asks to view the report.
 - Absolute paths for output and data files.
 - Every visual field must exist; the build fails with the exact name.
 - Multi-table models need relationships (`"from": "Sales[ProductKey]", "to": "Product[ProductKey]"`).

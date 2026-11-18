@@ -52,5 +52,6 @@ node "<PBIP_FORGE_DIR>\bin\pbip-forge.mjs" validate "<OUT_DIR>\<Name>.pbip"
 ## Notes
 
 - Codex may run in a sandbox. Allow the output directory and the Power BI
-  Desktop install path if TMDL validation or `--open` is needed.
+  Desktop install path if TMDL validation is needed. Only use `--open` when you
+  explicitly want a visible Power BI window.
 - No API keys or environment variables are required.

@@ -62,6 +62,7 @@ Always read the spec reference first:
 
 ## Rules
 
+- **Do not launch Power BI Desktop during generation or validation.** `powerbi_create` and `powerbi_validate` never open a window. Only call `powerbi_open` when the user explicitly asks to view the report.
 - **Absolute paths** for `outputDir`, `csv`, `excel`, and `specPath`.
 - **Only reference fields that exist** in the model. Use `Table[Column]` or
   `Table[Measure]`. Measures win when a name matches both.

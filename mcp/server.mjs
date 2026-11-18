@@ -5,13 +5,13 @@ import { HELP } from '../src/help.mjs'
 import { validateProject } from '../src/inspect.mjs'
 import { openInPowerBi } from '../src/desktop.mjs'
 
-const SERVER_INFO = { name: 'pbip-forge', version: '1.0.0' }
+const SERVER_INFO = { name: 'pbip-forge', version: '1.0.1' }
 const SUPPORTED_PROTOCOLS = ['2024-11-05', '2025-03-26', '2025-06-18']
 
 const CREATE_TOOL = {
   name: 'powerbi_create',
   description:
-    'Create a complete Power BI project (.pbip) directly on disk: TMDL semantic model, DAX measures, relationships, RLS, PBIR report pages and native visuals. No Power BI Desktop UI automation. Provide a spec object or a path to a JSON spec. Call powerbi_help for the full spec reference and examples.',
+    'Create a complete Power BI project (.pbip) directly on disk: TMDL semantic model, DAX measures, relationships, RLS, PBIR report pages and native visuals. Fully headless: this tool never launches Power BI Desktop and never opens a window. Provide a spec object or a path to a JSON spec. Call powerbi_help for the full spec reference and examples.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -32,13 +32,9 @@ const CREATE_TOOL = {
         type: 'boolean',
         description: 'Replace an existing generated project.',
       },
-      open: {
-        type: 'boolean',
-        description: 'Open the generated .pbip in Power BI Desktop (Windows).',
-      },
       validate: {
         type: 'boolean',
-        description: 'Run TMDL validation when Power BI Desktop is available. Default true.',
+        description: 'Run TMDL validation when Power BI Desktop is installed. Default true. This is a file-level check and does not open a window.',
       },
     },
     additionalProperties: false,
@@ -75,7 +71,7 @@ const VALIDATE_TOOL = {
 
 const OPEN_TOOL = {
   name: 'powerbi_open',
-  description: 'Open an existing .pbip file in Power BI Desktop (Windows only).',
+  description: 'Open an existing .pbip file in Power BI Desktop. WARNING: this is the only tool here that launches a visible Power BI window; use it only when the user explicitly asks to open the report. Windows only.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -120,7 +116,7 @@ async function callTool(name, args = {}) {
         {
           outputDir: args.outputDir,
           overwrite: args.overwrite,
-          open: args.open,
+          open: false,
           validate: args.validate,
         },
       )

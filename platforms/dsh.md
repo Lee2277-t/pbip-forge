@@ -7,10 +7,10 @@ installed as a native plugin, so no MCP configuration is needed.
 
 | Tool | Purpose |
 |---|---|
-| `powerbi_create` | Build a `.pbip` from a spec object or spec file |
+| `powerbi_create` | Build a `.pbip` from a spec object or spec file (headless, never opens a window) |
 | `powerbi_help` | Full spec reference |
-| `powerbi_validate` | Validate an existing `.pbip` |
-| `powerbi_open` | Open in Power BI Desktop (Windows) |
+| `powerbi_validate` | Validate an existing `.pbip` (headless) |
+| `powerbi_open` | Explicitly open in Power BI Desktop (this is the only visible-UI action) |
 
 Ask the agent:
 

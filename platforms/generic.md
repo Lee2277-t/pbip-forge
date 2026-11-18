@@ -29,7 +29,6 @@ PBIP Forge runs a dependency-free MCP stdio server at `mcp/server.mjs`.
   "spec": { "name": "Sales", "model": { "tables": [] }, "pages": [] },
   "outputDir": "C:\\work\\sales",
   "overwrite": true,
-  "open": false,
   "validate": true
 }
 ```

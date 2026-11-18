@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1 — 2026-11-18
+
+- Headless by default: `powerbi_create` and `powerbi_validate` never launch
+  Power BI Desktop and never open a window.
+- Removed the `open` parameter from the DSH and MCP `powerbi_create` schemas.
+- Added `--headless` / `PBIP_FORGE_HEADLESS=1`; it also blocks the explicit
+  `powerbi_open` path.
+- `powerbi_open` is now documented as the only visible-UI action.
+
 ## 1.0.0 — 2026-11-18
 
 - Initial release.

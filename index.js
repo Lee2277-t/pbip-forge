@@ -41,13 +41,9 @@ const CREATE_PARAMETERS = {
       type: 'boolean',
       description: 'Replace an existing generated project with the same name.',
     },
-    open: {
-      type: 'boolean',
-      description: 'Open the generated .pbip in Power BI Desktop after building (Windows).',
-    },
     validate: {
       type: 'boolean',
-      description: 'Parse the generated TMDL with the Power BI engine when Desktop is installed. Default true.',
+      description: 'Parse the generated TMDL with the Power BI engine when Desktop is installed. Default true. This is a file-level check and does not open a Power BI window.',
     },
   },
   additionalProperties: false,
@@ -68,10 +64,10 @@ export function apply(ctx) {
     description:
       'Create a complete Power BI project (.pbip) directly on disk — TMDL semantic model, ' +
       'DAX measures, relationships, RLS roles, PBIR pages and native visuals — without any ' +
-      'Power BI Desktop UI automation. Pass a project spec object, or a path to a JSON spec. ' +
-      'Call powerbi_help first for the full spec reference. Returns the project/report/model ' +
-      'paths, counts, warnings and validation status. Open the .pbip in Power BI Desktop, then ' +
-      'Save As .pbix or publish to Fabric.',
+      'Power BI Desktop UI automation. This tool NEVER launches Power BI Desktop and never ' +
+      'opens a window; it only writes and validates files. Pass a project spec object, or a ' +
+      'path to a JSON spec. Call powerbi_help first for the full spec reference. Returns the ' +
+      'project/report/model paths, counts, warnings and validation status.',
     parameters: CREATE_PARAMETERS,
     timeoutMs: 300_000,
     output: {
@@ -88,7 +84,7 @@ export function apply(ctx) {
           {
             outputDir: args.outputDir ?? defaultOutputDir(ctx, exec),
             overwrite: args.overwrite === true,
-            open: args.open === true,
+            open: false,
             validate: args.validate !== false,
           },
         )
@@ -151,7 +147,10 @@ export function apply(ctx) {
 
   ctx.tools.register({
     name: 'powerbi_open',
-    description: 'Open an existing .pbip file in Power BI Desktop. Windows only.',
+    description:
+      'Open an existing .pbip file in Power BI Desktop. WARNING: this is the only tool here ' +
+      'that launches a visible Power BI window; use it only when the user explicitly asks to ' +
+      'open the report. Windows only.',
     parameters: PATH_PARAMETERS,
     output: {
       schema: { type: 'string' },

@@ -25,6 +25,18 @@
 
 ---
 
+## 无窗口（headless）
+
+生成和校验**全程不启动 Power BI Desktop，不弹任何窗口**：
+
+- `powerbi_create` 只写 TMDL/PBIR 文件并做文件级校验
+- `powerbi_validate` 只读取文件做结构/TMDL 校验
+- `--headless` 是默认行为；即使传了 `--open` 也会被 `--headless` 覆盖
+
+只有显式调用 `powerbi_open`（或 CLI `pbip-forge open`）才会打开可见的 Power BI 窗口。
+
+---
+
 ## 快速开始
 
 ### 方式一：DSH 原生插件（当前环境已安装）
@@ -36,16 +48,22 @@
 
 Agent 会调用 4 个原生工具：
 
-- `powerbi_create` — 生成项目
+- `powerbi_create` — 生成项目（不打开窗口）
 - `powerbi_help` — 返回完整 spec 参考
-- `powerbi_validate` — 校验已有 `.pbip`
-- `powerbi_open` — 用 Power BI Desktop 打开
+- `powerbi_validate` — 校验已有 `.pbip`（不打开窗口）
+- `powerbi_open` — 仅在你明确要求时，用 Power BI Desktop 打开（会弹窗）
 
 ### 方式二：CLI（所有能跑终端的平台）
 
 ```bash
 node bin/pbip-forge.mjs build examples/sales-dashboard.json \
-  --output "C:\work\sales" --overwrite --open
+  --output "C:\work\sales" --overwrite
+```
+
+需要查看时，再单独执行：
+
+```bash
+node bin/pbip-forge.mjs open "C:\work\sales\Sales Performance.pbip"
 ```
 
 常用命令：

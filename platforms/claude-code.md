@@ -42,7 +42,7 @@ Claude Code will load `skills/powerbi/SKILL.md` and know when to use the tools.
 ## CLI fallback
 
 ```bash
-node "<PBIP_FORGE_DIR>/bin/pbip-forge.mjs" build spec.json --output ./pbip-out --open
+node "<PBIP_FORGE_DIR>/bin/pbip-forge.mjs" build spec.json --output ./pbip-out
 ```
 
 ## Notes
