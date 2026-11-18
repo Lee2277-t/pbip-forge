@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "powerbi": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["<PBIP_FORGE_DIR>\\mcp\\server.mjs"]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "pbip-forge",
+  "version": "1.0.0",
+  "description": "Create complete Power BI projects (.pbip) directly: TMDL semantic models, DAX measures, relationships, PBIR report pages and native visuals. Works as a CLI, an MCP server, and a DeepSeek Harness plugin.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "pbip-forge": "./bin/pbip-forge.mjs"
+  },
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./core": "./src/forge.mjs",
+    "./mcp": "./mcp/server.mjs",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "src",
+    "bin",
+    "mcp",
+    "locale",
+    "docs",
+    "platforms",
+    "skills",
+    "examples",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "icon.svg",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "powerbi",
+    "pbip",
+    "pbir",
+    "tmdl",
+    "mcp",
+    "dsh-plugin"
+  ]
+}

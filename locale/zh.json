@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Power BI 锻造器",
+    "description": "直接生成完整的 Power BI 项目（.pbip）：语义模型、DAX 度量值、关系，以及带原生图表的报表页面。"
+  }
+}

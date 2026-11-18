@@ -1,0 +1,12 @@
+node_modules/
+.pnpm-store/
+dist/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+
+# Generated test output
+powerbi_demo/
+powerbi_test/out/
+pbip-out/

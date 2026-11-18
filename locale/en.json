@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Power BI forge",
+    "description": "Create complete Power BI projects (.pbip) directly: semantic model, DAX measures, relationships, and report pages with native visuals."
+  }
+}

@@ -1,0 +1,4 @@
+[mcp_servers.powerbi]
+command = "node"
+args = ["<PBIP_FORGE_DIR>\\mcp\\server.mjs"]
+startup_timeout_sec = 30
