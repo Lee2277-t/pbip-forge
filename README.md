@@ -39,9 +39,15 @@
 
 ## 快速开始
 
-### 方式一：DSH 原生插件（当前环境已安装）
+### 方式一：DSH 原生插件
 
-插件已经安装在当前 DSH profile，直接对 Agent 说：
+```bash
+dsh plugin --profile web add /path/to/pbip-forge
+# 或者：dsh plugin add /path/to/pbip-forge
+```
+
+Desktop 应用管自己的 profile，那边用应用内 **Settings → Plugins** 装。
+装好后直接对 Agent 说：
 
 > 用 powerbi_create 做一个销售分析报表，数据用这个 CSV，包含……
 > 输出到 `C:\work\sales`
@@ -249,6 +255,17 @@ node bin/pbip-forge.mjs install --target "C:\tools\pbip-forge"
 C:\tools\pbip-forge\pbip-forge.cmd build spec.json --output C:\work\sales
 ```
 
+## 自测
+
+```bash
+npm test
+```
+
+临时目录里建一个带关系、度量值、RLS 角色、两页报表的项目，再把生成的文件读回来校验：
+文件树、TMDL、PBIR、覆盖保护、错误字段/错误关系的报错、带空格和引号的表名列名。
+不需要网络，也不打开 Power BI 窗口；跑完自动删掉临时文件。
+Windows 上装了 Power BI Desktop 时会额外跑一次真实 TMDL 解析，其它平台该项标 `skipped`。
+
 ---
 
 ## 限制
@@ -264,3 +281,28 @@ C:\tools\pbip-forge\pbip-forge.cmd build spec.json --output C:\work\sales
 ## License
 
 MIT。见 [`LICENSE`](LICENSE)。
+
+---
+
+## English
+
+**PBIP Forge** writes a complete Power BI project (`.pbip`) straight to disk — no computer-use, no ribbon clicking.
+
+It generates the **semantic model** (TMDL tables, columns, DAX measures, calculated columns, relationships, hierarchies, RLS roles) and the **report** (PBIR pages and native visuals: card, bar, column, line, area, pie, donut, table, matrix, slicer, scatter, gauge, KPI, textbox), then validates both: TMDL through the Power BI Tabular engine on Windows, PBIR against Microsoft's JSON schemas.
+
+**Three entry points, one core:**
+
+- **DSH plugin** — `dsh plugin add /path/to/pbip-forge`, then use `powerbi_create`, `powerbi_help`, `powerbi_validate`, `powerbi_open`.
+- **CLI** — `node bin/pbip-forge.mjs build examples/sales-dashboard.json --output ./out --json`
+- **MCP** — `node mcp/server.mjs`; per-client setup in [`platforms/`](platforms/).
+
+**Data sources:** inline rows, CSV (UTF-8), Excel (needs Python + openpyxl), or native Power Query M. `mode: "directQuery"` emits a DirectQuery partition.
+
+**Headless by default.** Generation and validation never open a Power BI window; only `powerbi_open` / `pbip-forge open` launches Desktop, and `PBIP_FORGE_HEADLESS=1` blocks even that.
+
+**Requirements:** Node.js 20+. Power BI Desktop is optional and Windows-only — without it everything still generates and validates, minus the engine-level TMDL parse.
+
+**Test:** `npm test` — builds and re-validates a project in a temp folder, including overwrite protection and the error paths for bad fields and bad relationships.
+
+This is not a Microsoft project; PBIP, TMDL and PBIR are public Microsoft formats.
+

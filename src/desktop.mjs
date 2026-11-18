@@ -79,16 +79,21 @@ export async function openInPowerBi(pbipPath) {
     }
   }
   const escaped = String(pbipPath).replaceAll("'", "''")
-  try {
-    await execFileAsync(
-      'powershell',
-      ['-NoProfile', '-NonInteractive', '-Command', `Start-Process -FilePath '${escaped}'`],
-      { timeout: 30_000, windowsHide: true },
-    )
-    return { opened: true }
-  } catch (error) {
-    return { opened: false, reason: String(error?.message ?? error) }
+  let lastError
+  for (const shell of candidateShells()) {
+    try {
+      await execFileAsync(
+        shell,
+        ['-NoProfile', '-NonInteractive', '-Command', `Start-Process -FilePath '${escaped}'`],
+        { timeout: 30_000, windowsHide: true },
+      )
+      return { opened: true }
+    } catch (error) {
+      lastError = error
+      if (error.code !== 'ENOENT') break
+    }
   }
+  return { opened: false, reason: String(lastError?.message ?? lastError ?? 'PowerShell was not found') }
 }
 
 export function isHeadless() {

@@ -1,7 +1,16 @@
 # DSH (DeepSeek Harness)
 
-PBIP Forge is a DSH bundle **and** an MCP server. In this profile it is already
-installed as a native plugin, so no MCP configuration is needed.
+PBIP Forge is a DSH bundle **and** an MCP server. Installed as a native plugin,
+it needs no MCP configuration.
+
+## Install
+
+```bash
+dsh plugin add /path/to/pbip-forge
+```
+
+Or, from a DSH session with the `plugin_manager` tool, call `install_bundle` with
+`target` set to this directory.
 
 ## Native tools
 

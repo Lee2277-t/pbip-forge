@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.2 — 2026-11-18
+
+- Public release: no machine-specific wording in the docs, no "already installed"
+  assumptions, repository metadata in `package.json`.
+- `powerbi_open` uses `pwsh` when it is available, falling back to `powershell`.
+- Added `npm test` (8 checks: build, file tree, RLS, validation, overwrite,
+  bad-field and bad-relationship rejection, quoted names) and GitHub Actions CI
+  on Windows and Linux.
+- `test/` ships in the published package.
+
 ## 1.0.1 — 2026-11-18
 
 - Headless by default: `powerbi_create` and `powerbi_validate` never launch

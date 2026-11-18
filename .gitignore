@@ -6,7 +6,5 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Generated test output
-powerbi_demo/
-powerbi_test/out/
+# Generated projects used while testing
 pbip-out/
