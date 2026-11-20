@@ -280,7 +280,7 @@ Windows 上装了 Power BI Desktop 时会额外跑一次真实 TMDL 解析，其
 
 ## License
 
-MIT。见 [`LICENSE`](LICENSE)。
+AGPL-3.0-only。见 [`LICENSE`](LICENSE)。
 
 ---
 

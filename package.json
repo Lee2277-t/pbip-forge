@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Create complete Power BI projects (.pbip) directly: TMDL semantic models, DAX measures, relationships, PBIR report pages and native visuals. Works as a CLI, an MCP server, and a DeepSeek Harness plugin.",
   "type": "module",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "author": "pbip-forge contributors",
   "homepage": "https://github.com/Lee2277-t/pbip-forge#readme",
   "repository": {
